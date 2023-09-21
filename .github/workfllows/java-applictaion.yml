@@ -1,0 +1,70 @@
+name: java application 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java version
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - name: Build with Maven
+        run: mvn clean install
+      
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-app
+          path: '${{ github.workspace }}/target/*.jar'
+  deploy:
+    name: Deploy to EC2 on master branch push
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  
+    steps:
+       - name: Checkout the files
+         uses: actions/checkout@v2
+         
+       - name: Download artifact from build job
+         uses: actions/download-artifact@v2
+         with:
+          name: java-app
+          
+       - name: Install rsync
+         run: sudo apt-get install rsync -y
+
+     #  - name: Rsync Files to Remote Server
+      #   run: |
+       #    rsync -avz --delete ./path/to/local/files/ user@hostname:/path/to/remote/files/
+         
+       - name: Deploy to Server 1
+         uses: easingthemes/ssh-deploy@main
+         env:
+           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+           REMOTE_HOST: ${{ secrets.HOST_DNS }}
+           REMOTE_USER: ${{ secrets.USERNAME }}
+           TARGET: ${{ secrets.TARGET_DIR }}
+           aws-region: ${{ env.AWS_REGION }}
+          # ARGS: -r
+          # SCRIPT_BEFORE: |
+          #    whoami
+          #    ls -al
+       #- name: Build docker image
+       #  run: sudo docker build -t my-app .
+       #- name: Run docker container
+       #  run: docker run -d -p 8080:8080 --name springboot my-app
+       
+         
+          # ARGS: -r
+         #  SCRIPT_BEFORE: |
+         #     whoami
+          #    ls -al
