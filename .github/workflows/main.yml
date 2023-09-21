@@ -1,7 +1,7 @@
 name: java application1 
 on:
   push:
-    branches:
+    branches: 
        - main
   workflow_dispatch:
 jobs:
