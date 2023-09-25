@@ -27,7 +27,7 @@ jobs:
         with:
            username: ${{ secrets.DEV_PORTAL_JFROG_USERNAME }}
            password: ${{ secrets.DEV_PORTAL_JFROG_API_KEY }}
-           registry: ${{ env.DOCKER_REGISTRY }}
+     #      registry: ${{ env.DOCKER_REGISTRY }}
   deploy:
     name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
