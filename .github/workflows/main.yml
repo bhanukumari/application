@@ -66,6 +66,12 @@ jobs:
              ls -al
        - name: Build docker image
          run: sudo docker build -t my-app .
+       - name: Setup Trivy
+         run: |
+           wget https://github.com/aquasecurity/trivy/releases/download/v0.20.1/trivy_0.20.1_Linux-64bit.tar.gz
+           tar zxvf trivy_0.20.1_Linux-64bit.tar.gz
+           sudo mv trivy /usr/local/bin/trivy
+           trivy --version
        - name: Run docker container
          run: docker run -d -p 8080:8080 --name springboot my-app
        
