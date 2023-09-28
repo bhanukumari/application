@@ -94,7 +94,7 @@ jobs:
            trivy --version
        - name: Run Trivy Scan
          run: |
-           trivy image my-app
+           trivy image my-app > scanning.txt
       # trivy image -o json ./home/ubuntu/application > trivy_scan.json
        #    working-directory: ${{ github.workspace }}
         
