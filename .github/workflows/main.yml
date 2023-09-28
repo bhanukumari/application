@@ -33,6 +33,9 @@ jobs:
        #   curl -fL https://getcli.jfrog.io | sh
         #  mv jfrog /usr/local/bin/jfrog
          # chmod +x /usr/local/bin/jfrog
+      - name: Set up JFrog CLI
+        run: |
+           docker login my-account.jfrog.io
       #- name: Login to JFrog
        # env:
         #  JFROG_CLI_OFFER_CONFIG: false
