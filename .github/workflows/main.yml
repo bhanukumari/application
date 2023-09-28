@@ -33,6 +33,15 @@ jobs:
           curl -fL https://getcli.jfrog.io | sh
           mv jfrog /usr/local/bin/jfrog
           chmod +x /usr/local/bin/jfrog
+      - name: Login to JFrog
+        env:
+          JFROG_CLI_OFFER_CONFIG: false
+        run: |
+          echo "machine YOUR_JFROG_REPO_URL login $JFROG_USERNAME password $JFROG_API_KEY" > ~/.netrc
+          jfrog config add my-artifactory-server --artifactory-url=YOUR_JFROG_REPO_URL --interactive=false
+          jfrog rt c my-artifactory-server --interactive=false
+          jfrog rt use my-artifactory-server
+
 
   deploy:
     name: Deploy to EC2 on master branch push
