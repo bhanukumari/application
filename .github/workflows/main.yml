@@ -28,11 +28,11 @@ jobs:
         #  registry: /home/ubuntu/app.jar.jfrog.io
          # username: ${{ secrets.JFROG_USERNAME }}
           #password: ${{ secrets.JFROG_PASSWORD }}
-      - name: Set up JFrog CLI
-        run: |
-          curl -fL https://getcli.jfrog.io | sh
-          mv jfrog /usr/local/bin/jfrog
-          chmod +x /usr/local/bin/jfrog
+     # - name: Set up JFrog CLI
+      #  run: |
+       #   curl -fL https://getcli.jfrog.io | sh
+        #  mv jfrog /usr/local/bin/jfrog
+         # chmod +x /usr/local/bin/jfrog
       #- name: Login to JFrog
        # env:
         #  JFROG_CLI_OFFER_CONFIG: false
