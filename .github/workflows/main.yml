@@ -38,7 +38,7 @@ jobs:
           JFROG_CLI_OFFER_CONFIG: false
         run: |
           echo "machine YOUR_JFROG_REPO_URL login $JFROG_USERNAME password $JFROG_API_KEY" > ~/.netrc
-          jfrog config add my-artifactory-server --artifactory-url=YOUR_JFROG_REPO_URL --interactive=false
+          jfrog config add my-artifactory-server --artifactory-url=http://52.14.28.235:8082/ui/admin/repositories/local/Bhanu12 --interactive=false
           jfrog rt c my-artifactory-server --interactive=false
           jfrog rt use my-artifactory-server
 
