@@ -41,12 +41,12 @@ jobs:
         #  jfrog config add my-artifactory-server --artifactory-url=http://52.14.28.235:8082/ui/admin/repositories/local/Bhanu12 --interactive=false
          # jfrog rt c my-artifactory-server --interactive=false
           #jfrog rt use my-artifactory-server
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-         push: true
-         tags: app.jar.jfrog.io/my-app:latest
+    #  - name: Build and push
+     #   id: docker_build
+      #  uses: docker/build-push-action@v2
+       # with:
+        # push: true
+         #tags: app.jar.jfrog.io/my-app:latest
 
   deploy:
     name: Deploy to EC2 on master branch push
