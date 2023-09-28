@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
          push: true
-         tags: app.jar.jfrog.io:latest
+         tags: app.jar.jfrog.io/my-app:latest
 
   deploy:
     name: Deploy to EC2 on master branch push
