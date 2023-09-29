@@ -22,31 +22,12 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
-    #  - name: Login to JFrog  
-     #   uses: docker/login-action@v1
-      #  with:
-       #   registry: /home/ubuntu/app.jar.jfrog.io
-        #  username: ${{ secrets.JFROG_USERNAME }}
-         # password: ${{ secrets.JFROG_PASSWORD }}
-      - name: Set up JFrog CLI
-        run: |
-          curl -fL https://getcli.jfrog.io | sh
-          mv jfrog /usr/local/bin/jfrog
-          chmod +x /usr/local/bin/jfrog
-      #- name: Login to JFrog
-       # env:
-        #  JFROG_CLI_OFFER_CONFIG: false
-         # run: |
-       #   echo "machine http://52.14.28.235:8082/ login $JFROG_USERNAME password $JFROG_API_KEY" > ~/.netrc
-        #  jfrog config add my-artifactory-server --artifactory-url=http://52.14.28.235:8082/ui/admin/repositories/local/Bhanu12 --interactive=false
-         # jfrog rt c my-artifactory-server --interactive=false
-          #jfrog rt use my-artifactory-server
-   #   - name: Build and push
-   #     id: docker_build
-    #    uses: docker/build-push-action@v2
-     #   with:
-      #   push: true
-       #  tags: app.jar.jfrog.io/my-app:latest
+      - name: Login to JFrog   
+        uses: docker/login-action@v1
+        with:
+          registry: <your artifactory>.jfrog.io
+          username: ${{ secrets.JFROG_USERNAME }}
+          password: ${{ secrets.JFROG_PASSWORD_WRITER }}
 
   deploy:
     name: Deploy to EC2 on master branch push
