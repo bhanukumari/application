@@ -15,7 +15,7 @@ on:
       #  description: Make a choice
        # options:
         #- prod
-        -# qa
+        #- qa
 jobs:
   build:
     runs-on: ubuntu-latest
