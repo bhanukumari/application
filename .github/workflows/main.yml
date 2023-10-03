@@ -1,5 +1,5 @@
 name: java application1   
-on:
+on: 
   push:
   pull_request:
     branches: 
