@@ -83,7 +83,7 @@ jobs:
            file: ./Dockerfile
            push: true
            tags: |
-                bhanu007.jfrog.io/docker/bhanu:${SHORT_SHA}
+                bhanu007.jfrog.io/docker/bhanu
        - name: Setup Trivy
          run: |
            wget https://github.com/aquasecurity/trivy/releases/download/v0.20.1/trivy_0.20.1_Linux-64bit.tar.gz
