@@ -94,4 +94,9 @@ jobs:
       #   run: |
        #    trivy image my-app       
        - name: Run docker container
-         run: docker run -d -p 8080:8080 --name springboot my-app
+         run: docker run -d -p 8080:8080 --name springboot my-app:latest
+
+
+
+
+
