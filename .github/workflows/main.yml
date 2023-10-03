@@ -18,11 +18,11 @@ jobs:
         export TARGET: ${{ secrets.TARGET_DIR }}
         export aws-region: ${{ env.AWS_REGION }}
 
-        echo "SSH_PRIVATE_KEY=${SSH_PRIVATE_KEY}" >> $GITHUB_OUTPUT
-        echo "REMOTE_HOST=${REMOTE_HOST}" >> $GITHUB_OUTPUT
-        echo "REMOTE_USER=${REMOTE_USER}" >> $GITHUB_OUTPUT
-        echo "TARGET=${TARGET}" >> $GITHUB_OUTPUT
-        echo "aws-region=${aws-region}" >> $GITHUB_OUTPUT
+        echo "SSH_PRIVATE_KEY=$SSH_PRIVATE_KEY" >> $GITHUB_OUTPUT
+        echo "REMOTE_HOST=$REMOTE_HOST" >> $GITHUB_OUTPUT
+        echo "REMOTE_USER=$REMOTE_USER" >> $GITHUB_OUTPUT
+        echo "TARGET=$TARGET" >> $GITHUB_OUTPUT
+        echo "aws-region=$aws-region" >> $GITHUB_OUTPUT
       outputs:
         SSH_PRIVATE_KEY: ${{ steps.identify.outputs.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ steps.identify.outputs.REMOTE_HOST }}
