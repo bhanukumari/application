@@ -70,29 +70,31 @@ jobs:
            SCRIPT_BEFORE: |
              whoami
              ls -al
-       -  name: Login to Docker Hub
+       -  name: Login to Docker using jfrog
           uses: docker/login-action@v2
           with:
            registry: ${{ secrets.REGISTRY_URL }}
            username: ${{ secrets.JFROG_USERNAME  }}
            password: ${{ secrets.JFROG_TOKEN }}
-       -  name: Build and push
+       - name : build images
+         run:  sudo docker build -t my-app .
+       -  name: push on a jfrog
           uses: docker/build-push-action@v5
           with:
            context: .
            file: ./Dockerfile
            push: true
            tags: |
-                bhanu007.jfrog.io/docker/bhanu
+                bhanu007.jfrog.io/docker/bhanu:my-app
        - name: Setup Trivy
          run: |
            wget https://github.com/aquasecurity/trivy/releases/download/v0.20.1/trivy_0.20.1_Linux-64bit.tar.gz
            tar zxvf trivy_0.20.1_Linux-64bit.tar.gz
            sudo mv trivy /usr/local/bin/trivy
            trivy --version
-    # - name: Run Trivy Scan
-     #   run: |
-      #     trivy image bhanu     
+       - name: Run Trivy Scan
+         run: |
+           trivy image      
        - name: Run docker container
          run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
