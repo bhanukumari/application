@@ -85,7 +85,7 @@ jobs:
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
           aws configure set default.region $AWS_DEFAULT_REGION
        - name: Login to Amazon ECR
-         run: $(aws ecr get-login --no-include-email --region your-ecr-region)
+         run: aws ecr get-login-password | docker login --username AWS --password-stdin 1234567890.dkr.ecr.us-west-2.amazonaws.com/reponame
 
        - name: Setup Trivy
          run: |
