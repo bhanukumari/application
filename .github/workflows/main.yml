@@ -90,11 +90,11 @@ jobs:
            tar zxvf trivy_0.20.1_Linux-64bit.tar.gz
            sudo mv trivy /usr/local/bin/trivy
            trivy --version
-     #  - name: Run Trivy Scan
-      #   run: |
-       #    trivy image my-app       
+    # - name: Run Trivy Scan
+     #   run: |
+      #     trivy image bhanu     
        - name: Run docker container
-         run: docker run -d -p 8080:8080 --name springboot my-app:latest
+         run: docker run -d -p 8080:8080 --name springboot bhanu:latest
 
 
 
