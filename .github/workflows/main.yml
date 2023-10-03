@@ -70,8 +70,19 @@ jobs:
            SCRIPT_BEFORE: |
              whoami
              ls -al
-       - name: Build docker image
-         run:  sudo docker build -t my-app .
+      # - name: Build docker image
+       #  run:  sudo docker build -t my-app .
+       - name: Docker Build images
+         id: docker_build
+         uses: docker/build-push-action@v2
+         with:
+          context: .
+          tags: |
+            ${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG }}
+            ${{ env.DOCKER_IMAGE_NAME }}:latest
+          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_TAG }}
+          cache-to: type=inline
+          load: true
      #  - name: Push Docker Image to ECR
       #   uses: actions/checkout@v2
 
