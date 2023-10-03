@@ -70,8 +70,8 @@ jobs:
            SCRIPT_BEFORE: |
              whoami
              ls -al
-       - name: Build docker image
-         run:  sudo docker build -t my-app .
+      # - name: Build docker image
+       #  run:  sudo docker build -t my-app .
        - name: Docker Build images
          id: docker_build
          uses: docker/build-push-action@v2
