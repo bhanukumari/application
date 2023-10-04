@@ -115,7 +115,7 @@ jobs:
         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
        - name: Check running containers
          run: sudo docker ps -a 
-  deploy:
+  deploy-stg:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/stg'
@@ -176,7 +176,7 @@ jobs:
       #   # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
       #  - name: Check running containers
       #    run: sudo docker ps -a 
-  deploy:
+  deploy-dev:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/dev'
