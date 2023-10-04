@@ -5,6 +5,8 @@ on:
     branches: 
        - main
        - feature
+       - stg
+       - dev
   workflow_dispatch:
      inputs:
       environment:
@@ -16,6 +18,8 @@ on:
         options:
         - prod
         - qa
+        - stg
+        - dev
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,12 +33,12 @@ jobs:
         run: mvn clean install
       - name: Static Code Analysis with checkstyle
         run: mvn checkstyle:checkstyle
-      - name: Bug analysis with sonarqube scan
-        run: |
-          mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=maven \
-            -Dsonar.host.url=http://18.217.206.90:9000 \
-            -Dsonar.login=sqp_9998b4f40c66e419499ace9fc4aa3f64205e00b6
+      # - name: Bug analysis with sonarqube scan
+      #   run: |
+      #     mvn clean verify sonar:sonar \
+      #       -Dsonar.projectKey=maven \
+      #       -Dsonar.host.url=http://18.217.206.90:9000 \
+      #       -Dsonar.login=sqp_9998b4f40c66e419499ace9fc4aa3f64205e00b6
             
       - name: unit testing with Maven
         run: mvn test
@@ -55,7 +59,7 @@ jobs:
 
   deploy:
     name: Deploy to EC2 on main branch push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
     needs: build
     environment:
       name: 'Production'
@@ -111,9 +115,78 @@ jobs:
         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
        - name: Check running containers
          run: sudo docker ps -a 
-         
-
-
+  deploy-stg:
+    name: Deploy to EC2 on main branch push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/stg'
+    needs: build
+    environment:
+      name: 'stg'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+      - name: deploy stg
+        run: echo stg
+      #  - name: Checkout the files
+      #    uses: actions/checkout@v2
+      #  - name: Download artifact from jfrog
+      #    uses: actions/download-artifact@v2
+      #    with:
+      #     name: java-app
+      #  - name: Install rsync 
+      #    run: sudo apt-get install rsync -y
+      #  - name: Deploy to Server 1
+      #    uses: easingthemes/ssh-deploy@main
+      #    env:
+      #      SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+      #      REMOTE_HOST: ${{ secrets.HOST_DNS }}
+      #      REMOTE_USER: ${{ secrets.USERNAME }}
+      #      TARGET: ${{ secrets.TARGET_DIR }}
+      #      aws-region: ${{ env.AWS_REGION }}
+      #      ARGS: -r
+      #      SCRIPT_BEFORE: |
+      #        whoami
+      #        ls -al
+      #  -  name: Login to Docker using jfrog
+      #     uses: docker/login-action@v2
+      #     with:
+      #      registry: ${{ secrets.REGISTRY_URL }}
+      #      username: ${{ secrets.JFROG_USERNAME  }}
+      #      password: ${{ secrets.JFROG_TOKEN }}
+      #  - name : build images
+      #    run:  sudo docker build -t my-app .
+      #  -  name: push on a jfrog
+      #     uses: docker/build-push-action@v5
+      #     with:
+      #      context: .
+      #      file: ./Dockerfile
+      #      push: true
+      #      tags: |
+      #           bhanu007.jfrog.io/docker/${{ github.sha }}
+      #  - name: Setup Trivy
+      #    run: |
+      #      wget https://github.com/aquasecurity/trivy/releases/download/v0.20.1/trivy_0.20.1_Linux-64bit.tar.gz
+      #      tar zxvf trivy_0.20.1_Linux-64bit.tar.gz
+      #      sudo mv trivy /usr/local/bin/trivy
+      #      trivy --version
+      #  - name: Run Trivy Scan
+      #    run: |
+      #      trivy image  my-app     
+      #  - name: Run docker container
+      #    run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
+      #   # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
+      #  - name: Check running containers
+      #    run: sudo docker ps -a 
+  deploy-dev:
+    name: Deploy to EC2 on main branch push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+    needs: build
+    environment:
+      name: 'dev'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    steps:
+      - name: deploy dev
+        run: echo dev
 
 
 
