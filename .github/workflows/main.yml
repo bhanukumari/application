@@ -10,12 +10,12 @@ on:
       environment:
         type: environment
         description: Select the environment
-    #  boolean:
-     #   type: choice
-      #  description: Make a choice
-       # options:
-        #- prod
-        #- qa
+      boolean:
+        type: choice
+        description: Make a choice
+        options:
+        - prod
+        - qa
 jobs:
   build:
     runs-on: ubuntu-latest
