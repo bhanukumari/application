@@ -5,6 +5,8 @@ on:
     branches: 
        - main
        - feature
+       - stg
+       - dev
   workflow_dispatch:
      inputs:
       environment:
@@ -16,6 +18,8 @@ on:
         options:
         - prod
         - qa
+        - stg
+        - dev
 jobs:
   build:
     runs-on: ubuntu-latest
