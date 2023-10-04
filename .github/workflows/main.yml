@@ -27,7 +27,7 @@ jobs:
           java-version: '11'
       - name: Build with Maven
         run: mvn clean install
-      - name: Static Code Analysis
+      - name: Static Code Analysis with checkstyle
         run: mvn checkstyle:checkstyle
       - name: Bug analysis with sonarqube scan
         run: |
