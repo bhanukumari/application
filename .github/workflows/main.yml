@@ -94,10 +94,12 @@ jobs:
            trivy --version
        - name: Run Trivy Scan
          run: |
-           trivy image      
+           trivy image  my-app     
        - name: Run docker container
          run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
+       - name: Check running containers
+         run: sudo docker ps -a 
          
 
 
