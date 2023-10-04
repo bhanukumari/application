@@ -115,9 +115,6 @@ jobs:
         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
        - name: Check running containers
          run: sudo docker ps -a 
-
-
-         
   deploy:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
