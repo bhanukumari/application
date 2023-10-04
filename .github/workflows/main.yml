@@ -118,7 +118,7 @@ jobs:
 
 
          
-  deploy:
+deploy:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/stg'
