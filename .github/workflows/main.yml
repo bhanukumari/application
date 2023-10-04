@@ -29,6 +29,12 @@ jobs:
         run: mvn clean install
       - name: Static Code Analysis
         run: mvn checkstyle:checkstyle
+      - name: SonarQube Scan
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=maven \
+            -Dsonar.host.url=http://18.217.206.90:9000 \
+            -Dsonar.login=sqp_9998b4f40c66e419499ace9fc4aa3f64205e00b6
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
