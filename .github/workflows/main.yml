@@ -27,6 +27,8 @@ jobs:
           java-version: '11'
       - name: Build with Maven
         run: mvn clean install
+      - name: Static Code Analysis
+        run: mvn checkstyle:checkstyle
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
