@@ -60,9 +60,10 @@ jobs:
   deploy:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest 
+    if: github.ref == 'refs/heads/prod'
     needs: build
     environment:
-      name: 'Production'
+      name: 'Prod'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     steps:
        - name: Checkout the files
