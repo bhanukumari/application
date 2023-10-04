@@ -63,7 +63,7 @@ jobs:
     steps:
        - name: Checkout the files
          uses: actions/checkout@v2
-       - name: Download artifact from build job
+       - name: Download artifact from jfrog
          uses: actions/download-artifact@v2
          with:
           name: java-app
