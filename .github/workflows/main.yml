@@ -24,17 +24,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: code checkout
+        uses: actions/checkout@v2
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-  integration-mvn:
+      - name: Build with Maven
+        run: mvn clean install
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: java-app
+          path: '${{ github.workspace }}/target/*.jar'
+          
+  integration-checks:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Build with Maven
-        run: mvn clean install
+      - name: code checkout
+        uses: actions/checkout@v2
+      - name: Download artifact 
+        uses: actions/download-artifact@v2
+        with:
+          name: java-app
       - name: Static Code Analysis with checkstyle
         run: mvn checkstyle:checkstyle
       # - name: Bug analysis with sonarqube scan
@@ -47,11 +60,11 @@ jobs:
       - name: unit testing with Maven
         run: mvn test
       
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+     # - name: Upload artifact for deployment job
+      #  uses: actions/upload-artifact@v2
+       # with:
+        #  name: java-app
+         # path: '${{ github.workspace }}/target/*.jar'
       - name: Set up JFrog CLI
         run: |
           curl -fL https://getcli.jfrog.io | sh
