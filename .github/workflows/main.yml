@@ -29,6 +29,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
+  integration-mvn:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Build with Maven
         run: mvn clean install
       - name: Static Code Analysis with checkstyle
