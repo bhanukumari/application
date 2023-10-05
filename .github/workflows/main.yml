@@ -78,8 +78,38 @@ jobs:
     runs-on: ubuntu-latest 
     needs: build
     steps:
-      - name: deploy prod
-        run: echo prod
+      - name: code checkout
+        uses: actions/checkout@v2
+      - name: Download artifact 
+        uses: actions/download-artifact@v2
+        with:
+          name: java-app
+      - name : build images
+        run:  sudo docker build -t my-app .
+      - name: Setup Trivy
+        run: |
+           wget https://github.com/aquasecurity/trivy/releases/download/v0.20.1/trivy_0.20.1_Linux-64bit.tar.gz
+           tar zxvf trivy_0.20.1_Linux-64bit.tar.gz
+           sudo mv trivy /usr/local/bin/trivy
+           trivy --version
+      - name: Run Trivy Scan
+        run: |
+          trivy image  my-app >> scanning.txt
+          cat scanning.txt
+      -  name: Login to Docker using jfrog
+         uses: docker/login-action@v2
+         with:
+           registry: ${{ secrets.REGISTRY_URL }}
+           username: ${{ secrets.JFROG_USERNAME  }}
+           password: ${{ secrets.JFROG_TOKEN }}
+      -  name: push on a jfrog
+         uses: docker/build-push-action@v5
+         with:
+           context: .
+           file: ./Dockerfile
+           push: true
+           tags: |
+               bhanu007.jfrog.io/docker/${{ github.sha }}
   deploy_prod:
     name: Deploy to EC2 on prod branch push
     runs-on: ubuntu-latest 
