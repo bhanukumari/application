@@ -169,12 +169,12 @@ jobs:
     environment:
       name: 'dev'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-      steps:
-        - name: Install rsync 
-          run: sudo apt-get install rsync -y
-        - name: Deploy to Server 1
-          uses: easingthemes/ssh-deploy@main
-          env:
+    steps:
+      - name: Install rsync 
+        run: sudo apt-get install rsync -y
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
             SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
             REMOTE_HOST: ${{ secrets.HOST_DNS }}
             REMOTE_USER: ${{ secrets.USERNAME }}
@@ -184,11 +184,11 @@ jobs:
             SCRIPT_BEFORE: |
                whoami
                ls -al    
-        - name: Run docker container
-          run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
          # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
-        - name: Check running containers
-          run: sudo docker ps -a  
+      - name: Check running containers
+        run: sudo docker ps -a  
 
 
 
