@@ -30,7 +30,7 @@ jobs:
         with:
           java-version: '11'
   integration-mvn:
-    needs: build
+  #  needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Build with Maven
