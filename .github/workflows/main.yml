@@ -185,7 +185,7 @@ jobs:
                whoami
                ls -al    
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
-         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
+      #  run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
+        run: docker run -d -p 8080:8080 --name springboot bhanu1:latest
       - name: Check running containers
         run: sudo docker ps -a  
