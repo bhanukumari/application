@@ -122,7 +122,7 @@ jobs:
     name: Deploy to EC2 on stg branch push
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/stg'
-    needs: build
+    needs: [ build , deploy-prod ]
     environment:
       name: 'stg'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
