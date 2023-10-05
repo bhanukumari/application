@@ -198,17 +198,17 @@ deploy-prod:
       #   # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
       #  - name: Check running containers
       #    run: sudo docker ps -a 
-  deploy-dev:
-    name: Deploy to EC2 on dev branch push
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/dev'
-    needs: build
-    environment:
-      name: 'dev'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    steps:
-      - name: deploy dev
-        run: echo dev
+#  deploy-dev:
+ #   name: Deploy to EC2 on dev branch push
+  #  runs-on: ubuntu-latest
+   # if: github.ref == 'refs/heads/dev'
+    #needs: build
+    #environment:
+     # name: 'dev'
+      #url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    #steps:
+     # - name: deploy dev
+      #  run: echo dev
 
 
 
