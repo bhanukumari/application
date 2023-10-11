@@ -130,7 +130,7 @@ jobs:
       - name: login docker
         run: docker login bhanu007.jfrog.io
       - name: Run docker container 
-        run: docker run -d -p 8080:8080 --name springboot test:latest
+        run: docker run -d -p 8080:8080 --name springboot bhanu007.jfrog.io/docker/test:latest
       - name: Check running containers
         run: sudo docker ps -a 
   deploy-stg:
@@ -157,7 +157,7 @@ jobs:
             whoami
             ls -al    
      - name: Run docker container
-       run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
+       run: docker run -d -p 8080:8080 --name  springboot bhanu007.jfrog.io/docker/test:latest
          # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
      - name: Check running containers
        run: sudo docker ps -a  
@@ -187,6 +187,6 @@ jobs:
                ls -al    
       - name: Run docker container
  #       run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
-        run: docker run -d -p 8080:8080 --name springboot test:latest
+        run: docker run -d -p 8080:8080 --name springboot bhanu007.jfrog.io/docker/test:latest
       - name: Check running containers
         run: sudo docker ps -a  
