@@ -52,11 +52,10 @@ jobs:
         run: mvn checkstyle:checkstyle
       - name: Bug analysis with sonarqube scan
         run: |
-          echo "hello bhanu"
-        # mvn clean verify sonar:sonar \
-         #   -Dsonar.projectKey=maven \
-          #  -Dsonar.host.url=http://18.217.206.90:9000 \
-           # -Dsonar.login=sqp_9998b4f40c66e419499ace9fc4aa3f64205e00b6
+          mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=preject2 \
+          -Dsonar.host.url=http://3.14.146.214:9000 \
+          -Dsonar.login=sqp_d5d1c06626c76b2aee428e20f2ca9434d02a13d2
             
       - name: unit testing with Maven
         run: mvn test
