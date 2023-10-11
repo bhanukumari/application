@@ -103,8 +103,7 @@ jobs:
            file: ./Dockerfile
            push: true
            tags: |
-              # bhanu007.jfrog.io/docker/${{ github.sha }}
-               bhanu007.jfrog.io/docker/test:latest
+             bhanu007.jfrog.io/docker/test:latest
   deploy_prod:
     name: Deploy to EC2 on prod branch push
     runs-on: ubuntu-latest
