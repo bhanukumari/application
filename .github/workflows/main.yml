@@ -126,7 +126,9 @@ jobs:
           ARGS: -r
           SCRIPT_BEFORE: |
               whoami
-              ls -al    
+              ls -al   
+      - name: login docker
+        run: docker login bhanu007.jfrog.io
       - name: Run docker container 
         run: docker run -d -p 8080:8080 --name springboot  bhanu007.jfrog.io/docker/test:latest
       - name: Check running containers
