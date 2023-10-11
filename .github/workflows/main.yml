@@ -7,19 +7,19 @@ on:
        - feature
        - stg
        - dev
-  workflow_dispatch:
-     inputs:
-      environment:
-        type: environment
-        description: Select the environment
-      boolean:
-        type: choice
-        description: Make a choice
-        options:
-        - prod
-        - qa
-        - stg
-        - dev
+#  workflow_dispatch:
+ #    inputs:
+  #    environment:
+   #     type: environment
+    #    description: Select the environment
+     # boolean:
+      #  type: choice
+       # description: Make a choice
+        #options:
+       # - prod
+        #- qa
+       # - stg
+       # - dev
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -188,7 +188,7 @@ jobs:
         run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
          # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
       - name: Check running containers
-        run: sudo docker ps -a  
+        run: sudo docker ps -a   
 
 
 
