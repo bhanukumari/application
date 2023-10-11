@@ -103,7 +103,8 @@ jobs:
            file: ./Dockerfile
            push: true
            tags: |
-               bhanu007.jfrog.io/docker/${{ github.sha }}
+              # bhanu007.jfrog.io/docker/${{ github.sha }}
+               bhanu007.jfrog.io/docker/test:latest
   deploy_prod:
     name: Deploy to EC2 on prod branch push
     runs-on: ubuntu-latest
@@ -127,9 +128,8 @@ jobs:
           SCRIPT_BEFORE: |
               whoami
               ls -al    
-      - name: Run docker container
-        run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
-         # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
+      - name: Run docker container 
+        run: docker run -d -p 8080:8080 --name springboot  bhanu007.jfrog.io/docker/test:latest
       - name: Check running containers
         run: sudo docker ps -a 
   deploy-stg:
@@ -185,7 +185,7 @@ jobs:
                whoami
                ls -al    
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
-      #  run: docker run -d -p 8080:8080 --name springboot bhanu1:latest
+ #       run: docker run -d -p 8080:8080 --name  springboot nginx:latest 
+        run: docker run -d -p 8080:8080 --name springboot  bhanu007.jfrog.io/docker/test:latest
       - name: Check running containers
         run: sudo docker ps -a  
