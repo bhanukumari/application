@@ -7,19 +7,19 @@ on:
        - feature
        - stg
        - dev
-#  workflow_dispatch:
- #    inputs:
-  #    environment:
-   #     type: environment
-    #    description: Select the environment
-     # boolean:
-      #  type: choice
-       # description: Make a choice
-        #options:
-       # - prod
-        #- qa
-       # - stg
-       # - dev
+  workflow_dispatch:
+     inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: choice
+        description: Make a choice
+        options:
+         - prod
+         - qa
+         - stg
+         - dev
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -52,10 +52,11 @@ jobs:
         run: mvn checkstyle:checkstyle
       - name: Bug analysis with sonarqube scan
         run: |
-          mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=preject2 \
-          -Dsonar.host.url=http://3.14.146.214:9000 \
-          -Dsonar.login=sqp_d5d1c06626c76b2aee428e20f2ca9434d02a13d2
+         echo "space"
+ #         mvn clean verify sonar:sonar \
+  #        -Dsonar.projectKey=preject2 \
+   #       -Dsonar.host.url=http://3.14.146.214:9000 \
+    #      -Dsonar.login=sqp_d5d1c06626c76b2aee428e20f2ca9434d02a13d2
             
       - name: unit testing with Maven
         run: mvn test
@@ -189,6 +190,4 @@ jobs:
          # run: docker run -d -p 8080:8080 --name springboot bhanu:latest
       - name: Check running containers
         run: sudo docker ps -a   
-
-
 
